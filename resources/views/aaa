@@ -1,0 +1,37 @@
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+  <thead>
+    <tr>
+      <th>No.</th>
+      <th>Nama Lengkap</th>
+      <th>Nomor Telepon</th>
+      <th>Email</th>
+      <th>Status</th>
+      <th>Aksi</th>
+    </tr>
+  </thead>
+  <tbody>
+    @php $no = 1; @endphp
+    @foreach($petugas as $pt)
+    <tr>
+      <td>{{ $no++ }}</td>
+      <td>{{ $pt->nama_petugas }}</td>
+      <td>{{ $pt->no_telp }}</td>
+      <td>{{ $pt->email }}</td>
+      <td>{{ $pt->level }}</td>
+
+      <td>
+        <form action="{{ route('register.destroy', $pt->id )}}" method="post">
+          {{ csrf_field() }}
+          {{ method_field('DELETE') }}
+          <a href="{{ route('register.edit', $pt->id) }}" class="btn btn-sm btn-primary">Edit</a>
+          <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data?')">Delete</button>
+        </form>
+      </td>
+    </tr>
+    @endforeach
+  </tbody>
+</table>
+<?php if(Session::get('status')=="admin") {?>
+<a href="{{ route('novel.create') }}" class="btn btn-sm btn-success">Tambah Data</a>
+<?php } ?>
+</div>
